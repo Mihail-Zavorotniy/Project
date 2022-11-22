@@ -1,0 +1,56 @@
+import pygame
+
+
+WIDTH = 700
+HEIGHT = 700
+inventory_size = 6
+all_sprites = {'inventory_bar': 0, 'empty_slot': 0, 'mushroom': 0}
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+
+def fill_sprites():
+    for key in all_sprites.keys():
+        all_sprites[key] = pygame.image.load('C:\\Users\\Dell\\Desktop\\sprites\\' + key + '.png').convert()
+
+fill_sprites()
+
+
+class Inventory:
+    def __init__(self):
+        self.screen = screen
+        self.sprite = all_sprites['inventory_bar']
+        self.height = all_sprites['inventory_bar'].get_height()
+        self.width = all_sprites['inventory_bar'].get_width()
+        self.size = inventory_size
+        self.contents = ['empty_slot']*self.size
+        self.x = 0
+        self.y = (HEIGHT - self.height)/2
+
+    def draw(self):
+        screen.blit(self.sprite, (self.x, self.y))
+        for i in range(len(self.contents)):
+            screen.blit(all_sprites[self.contents[i]], (3, self.y + self.height*i/self.size + 3))
+
+    def add_item(self, item_name):
+        for i in range(len(self.contents)):
+            if self.contents[i] == 'empty_slot':
+                self.contents[i] = item_name
+                break
+
+    def remove_item(self, item_name):
+        for i in range(len(self.contents)):
+            if self.contents[i] == item_name:
+                self.contents[i] = 'empty_slot'
+                break
+
+finished = False
+inventory = Inventory()
+print(all_sprites)
+
+while not finished:
+    screen.fill(WHITE)
+    inventory.draw()
+    pygame.display.update()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            finished = True
+pygame.quit()
