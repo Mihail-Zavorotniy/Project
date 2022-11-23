@@ -22,10 +22,10 @@ class Inventory:
 
     def draw(self):
         self.screen.blit(self.sprite, (self.x, self.y))
-        for i in range(len(self.contents)):
+        for i in range(self.slots_amount):
             self.screen.blit(self.contents[i],
-                            (self.x + self.border_width,
-                             self.y + self.border_width + i*(self.slot_size * self.border_width)))
+                             (self.x + self.border_width,
+                              self.y + self.border_width + i * (self.slot_size + self.border_width)))
         if self.active:
             self.draw_selected_slot()
             
