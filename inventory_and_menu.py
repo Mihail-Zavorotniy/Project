@@ -76,3 +76,39 @@ class Inventory:
         self.selected_slot += 1
         if self.selected_slot >= self.slots_amount:
             self.selected_slot = 0
+
+            
+class Menu(Inventory):
+    def __init__(self, screen, coord, sprite, slots_amount, slot_width, border_width, empty_sprite):
+        super().__init__(screen, coord, sprite, slots_amount, border_width, empty_sprite)
+        self.slot_width = slot_width
+
+    def draw_selected_slot(self):
+        draw.line(self.screen, self.border_color,
+                  (self.x,
+                   self.y + self.border_width / 2 + self.selected_slot * (self.slot_size + self.border_width)),
+                  (self.x + self.slot_width + 2 * self.border_width,
+                   self.y + self.border_width / 2 + self.selected_slot * (self.slot_size + self.border_width)),
+                  self.border_width)
+        draw.line(self.screen, self.border_color,
+                  (self.x,
+                   self.y + self.slot_size + 3 * self.border_width / 2 + self.selected_slot * (
+                           self.slot_size + self.border_width)),
+                  (self.x + self.slot_width + 2 * self.border_width,
+                   self.y + self.slot_size + 3 * self.border_width / 2 + self.selected_slot * (
+                           self.slot_size + self.border_width)),
+                  self.border_width)
+        draw.line(self.screen, self.border_color,
+                  (self.x + self.border_width / 2,
+                   self.y + self.selected_slot * (self.slot_size + self.border_width)),
+                  (self.x + self.border_width / 2,
+                   self.y + self.slot_size + 2 * self.border_width + self.selected_slot * (
+                           self.slot_size + self.border_width)),
+                  self.border_width)
+        draw.line(self.screen, self.border_color,
+                  (self.x + self.slot_width + 3 * self.border_width / 2,
+                   self.y + self.selected_slot * (self.slot_size + self.border_width)),
+                  (self.x + self.slot_width + 3 * self.border_width / 2,
+                   self.y + self.slot_size + 2 * self.border_width + self.selected_slot * (
+                           self.slot_size + self.border_width)),
+                  self.border_width)            
