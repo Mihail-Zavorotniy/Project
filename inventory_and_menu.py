@@ -28,32 +28,38 @@ class Inventory:
                               self.y + self.border_width + i * (self.slot_size + self.border_width)))
         if self.active:
             self.draw_selected_slot()
-            
+        else:
+            self.selected_slot = 0
+
     def draw_selected_slot(self):
-            draw.line(self.screen, self.border_color,
-                     (self.x,
-                      self.y + self.border_width/2 + self.selected_slot*(self.slot_size + self.border_width)),
-                     (self.x + self.slot_size + 2*self.border_width,
-                      self.y + self.border_width/2 + self.selected_slot*(self.slot_size + self.border_width)),
-                      self.border_width)
-            draw.line(self.screen, self.border_color,
-                      (self.x,
-                       self.y + self.slot_size + 3*self.border_width/2 + self.selected_slot*(self.slot_size + self.border_width)),
-                      (self.x + self.slot_size + 2*self.border_width,
-                       self.y + self.slot_size + 3*self.border_width/2 + self.selected_slot*(self.slot_size + self.border_width)),
-                      self.border_width)
-            draw.line(self.screen, self.border_color,
-                      (self.x + self.border_width/2,
-                       self.y + self.selected_slot*(self.slot_size + self.border_width)),
-                      (self.x + self.border_width/2,
-                       self.y + self.slot_size + 2*self.border_width + self.selected_slot*(self.slot_size + self.border_width)),
-                      self.border_width)
-            draw.line(self.screen, self.border_color,
-                      (self.x + self.slot_size + 3*self.border_width/2,
-                       self.y + self.selected_slot*(self.slot_size + self.border_width)),
-                      (self.x + self.slot_size + 3*self.border_width/2,
-                       self.y + self.slot_size + 2*self.border_width + self.selected_slot*(self.slot_size + self.border_width)),
-                      self.border_width)
+        draw.line(self.screen, self.border_color,
+                  (self.x,
+                   self.y + self.border_width / 2 + self.selected_slot * (self.slot_size + self.border_width)),
+                  (self.x + self.slot_size + 2 * self.border_width,
+                   self.y + self.border_width / 2 + self.selected_slot * (self.slot_size + self.border_width)),
+                  self.border_width)
+        draw.line(self.screen, self.border_color,
+                  (self.x,
+                   self.y + self.slot_size + 3 * self.border_width / 2 + self.selected_slot * (
+                               self.slot_size + self.border_width)),
+                  (self.x + self.slot_size + 2 * self.border_width,
+                   self.y + self.slot_size + 3 * self.border_width / 2 + self.selected_slot * (
+                               self.slot_size + self.border_width)),
+                  self.border_width)
+        draw.line(self.screen, self.border_color,
+                  (self.x + self.border_width / 2,
+                   self.y + self.selected_slot * (self.slot_size + self.border_width)),
+                  (self.x + self.border_width / 2,
+                   self.y + self.slot_size + 2 * self.border_width + self.selected_slot * (
+                               self.slot_size + self.border_width)),
+                  self.border_width)
+        draw.line(self.screen, self.border_color,
+                  (self.x + self.slot_size + 3 * self.border_width / 2,
+                   self.y + self.selected_slot * (self.slot_size + self.border_width)),
+                  (self.x + self.slot_size + 3 * self.border_width / 2,
+                   self.y + self.slot_size + 2 * self.border_width + self.selected_slot * (
+                               self.slot_size + self.border_width)),
+                  self.border_width)
 
     def add_item(self, item_sprite):
         for i in range(len(self.contents)):
@@ -77,7 +83,7 @@ class Inventory:
         if self.selected_slot >= self.slots_amount:
             self.selected_slot = 0
 
-            
+
 class Menu(Inventory):
     def __init__(self, screen, coord, sprite, slots_amount, slot_width, border_width, empty_sprite):
         super().__init__(screen, coord, sprite, slots_amount, border_width, empty_sprite)
@@ -111,4 +117,4 @@ class Menu(Inventory):
                   (self.x + self.slot_width + 3 * self.border_width / 2,
                    self.y + self.slot_size + 2 * self.border_width + self.selected_slot * (
                            self.slot_size + self.border_width)),
-                  self.border_width)            
+                  self.border_width)
