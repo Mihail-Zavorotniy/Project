@@ -7,6 +7,7 @@ class Inventory:
         self.screen = screen
         self.active = False
         self.sprite = sprite
+        self.empty_sprite = empty_sprite
         self.height = sprite.get_height()
         self.width = sprite.get_width()
         self.border_width = border_width
@@ -18,7 +19,6 @@ class Inventory:
         self.x = coord[0]
         self.y = coord[1]
         self.selected_slot = 0
-        self.empty_sprite = empty_sprite
 
     def draw(self):
         self.screen.blit(self.sprite, (self.x, self.y))
