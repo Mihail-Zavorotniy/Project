@@ -1,51 +1,38 @@
 import pygame
-from constants import *
+
 
 class Player:
-    def __init__(self, x, y, screen: pygame.Surface):
-        '''Параметры игрока
-                х - положение по оси х
-                у - положение по оси у
-                v - базовая скорость
-                move - показывает, двигается ли игрок вверх, вправо, вниз, влево'''
-        self.x = x
-        self.y = y
-        self.v = 0.5
+    def __init__(self, screen: pygame.Surface, sprites: list, coord: list,
+                  movement_speed, hitbox_size: list):
         self.screen = screen
-        self.move = {'up': False, 'down': False, 'right': False, 'left': False}
+        self.sprite = sprites[0]
+        self.x = coord[0]
+        self.y = coord[1]
+        self.v = movement_speed
+        self.moved = False
+        self.immobile = False
+        self.hitbox_width = hitbox_size[0]
+        self.hitbox_height = hitbox_size[1]
+        self.hitbox_x = self.x + self.hitbox_width / 2
+        self.hitbox_y = self.y + self.sprite.get_height() - self.hitbox_height / 2
+        self.prev_hitbox_x = self.hitbox_x
+        self.prev_hitbox_y = self.hitbox_y
 
-    def does_player_move(self, event):
-        '''Изменение данных кортежа move рпи зажимании клавиш-стрелок пользователем'''
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_a:
-                player.move['left'] = True
-            elif event.key == pygame.K_d:
-                player.move['right'] = True
-            elif event.key == pygame.K_w:
-                player.move['up'] = True
-            elif event.key == pygame.K_s:
-                player.move['down'] = True
-        elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_a:
-                player.move['left'] = False
-            elif event.key == pygame.K_d:
-                player.move['right'] = False
-            elif event.key == pygame.K_w:
-                player.move['up'] = False
-            elif event.key == pygame.K_s:
-                player.move['down'] = False
+    def move(self, direcrion: str):
+        if not self.moved:
+            self.prev_hitbox_x = self.hitbox_x
+            self.prev_hitbox_y = self.hitbox_y
+        self.moved = True
+        if direcrion == 'r':
+            self.hitbox_x += self.v
+        if direcrion == 'l':
+            self.hitbox_x -= self.v
+        if direcrion == 'u':
+            self.hitbox_y -= self.v
+        if direcrion == 'd':
+            self.hitbox_y += self.v
 
-    def move_player(self):
-        '''Изменяет координаты игрока, если зажаты клавиши движения'''
-        if self.move['right']:
-            self.x += self.v
-        if self.move['left']:
-            self.x -= self.v
-        if self.move['up']:
-            self.y -= self.v
-        if self.move['down']:
-            self.y += self.v
-
-    def draw_player(self):
-        pygame.draw.circle(screen, (255, 255, 255), (self.x, self.y), 20)
-
+    def draw(self):
+        self.screen.blit(self.sprite,
+                        (self.hitbox_x - self.hitbox_width/2,
+                         self.hitbox_y + self.hitbox_height/2 - self.sprite.get_height()))
