@@ -5,6 +5,8 @@ from visuals import *
 from inventory_and_menu import *
 from managers import *
 
+import os
+from os import path
 
 all_sprites = {'starting_background': 0,
                'inventory_bar': 0,
@@ -15,7 +17,8 @@ all_sprites = {'starting_background': 0,
 
 def fill_sprites():
     for key in all_sprites.keys():
-        all_sprites[key] = pygame.image.load('C:\\Users\\Dell\\Desktop\\sprites\\' + key + '.png').convert()
+        file_name = key + '.png'
+        all_sprites[key] = pygame.image.load(os.path.join('sprites', file_name)).convert()
 
 def input_handler():
     global finished
