@@ -15,7 +15,7 @@ class Inventory:
         self.slots_amount = slots_amount
         self.slot_size = (self.height - border_width) / slots_amount - border_width
         self.empty_sprite = empty_sprite
-        self.contents = [empty_sprite] * slots_amount
+        self.contents = [None] * slots_amount
         self.x = coord[0]
         self.y = coord[1]
         self.selected_slot = 0
@@ -23,9 +23,14 @@ class Inventory:
     def draw(self):
         self.screen.blit(self.sprite, (self.x, self.y))
         for i in range(self.slots_amount):
-            self.screen.blit(self.contents[i],
-                             (self.x + self.border_width,
-                              self.y + self.border_width + i * (self.slot_size + self.border_width)))
+            if self.contents[i] == None:
+                self.screen.blit(self.empty_sprite,
+                                 (self.x + self.border_width,
+                                  self.y + self.border_width + i * (self.slot_size + self.border_width)))
+            else:
+                self.screen.blit(self.contents[i].sprite,
+                                 (self.x + self.border_width,
+                                  self.y + self.border_width + i * (self.slot_size + self.border_width)))
         if self.active:
             self.draw_selected_slot()
         else:
@@ -61,16 +66,16 @@ class Inventory:
                                self.slot_size + self.border_width)),
                   self.border_width)
 
-    def add_item(self, item_sprite):
+    def add_item(self, obj):
         for i in range(len(self.contents)):
-            if self.contents[i] == self.empty_sprite:
-                self.contents[i] = item_sprite
+            if self.contents[i] == None:
+                self.contents[i] = obj
                 break
 
-    def remove_item(self, item_sprite):
+    def remove_item(self, obj):
         for i in range(len(self.contents)):
-            if self.contents[i] == item_sprite:
-                self.contents[i] = self.empty_sprite
+            if self.contents[i] == obj:
+                self.contents[i] = None
                 break
 
     def selected_up(self):
