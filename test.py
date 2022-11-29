@@ -101,11 +101,11 @@ inventory = Inventory(screen, [0, 100], all_sprites['inventory_bar'], 9, 7, all_
 player = Player(screen, [all_sprites['player']], player_starting_coord, 8,
                 [all_sprites['player'].get_width()/2, all_sprites['player'].get_height()/16])
 obj1 = Object(screen, [all_sprites['mushroom']], [200, 500],
-                          [[all_sprites['mushroom'].get_width()], [all_sprites['mushroom'].get_height()/8]])
+                          [[all_sprites['mushroom'].get_width(), all_sprites['mushroom'].get_height()/8]])
 obj2 = Object(screen, [all_sprites['mushroom']], [500, 400],
-                          [[all_sprites['mushroom'].get_width()], [all_sprites['mushroom'].get_height()/16]])
+                          [[all_sprites['mushroom'].get_width(), all_sprites['mushroom'].get_height()/16]])
 obj3 = Object(screen, [all_sprites['mushroom']], [300, 300],
-                          [[all_sprites['mushroom'].get_width()], [all_sprites['mushroom'].get_height()/32]])
+                          [[all_sprites['mushroom'].get_width(), all_sprites['mushroom'].get_height()/32]])
 bg1 = Background(screen, all_sprites['starting_background'], [obj1, obj2, obj3])
 bg_manager = BackgroundManager([bg1])
 

@@ -13,12 +13,11 @@ class Object:
             self.inventory_sprite = self.sprite
         self.x = coord[0]
         self.y = coord[1]
-        self.hitbox_widthes = hitbox_sizes[0]
-        self.hitbox_heights = hitbox_sizes[1]
-        self.hitbox_width = self.hitbox_widthes[self.current_state]
-        self.hitbox_height = self.hitbox_heights[self.current_state]
-        self.hitbox_x = self.x+self.sprites[self.current_state].get_width()/2
-        self.hitbox_y = self.y+self.sprites[self.current_state].get_height()-self.hitbox_heights[self.current_state]/2
+        self.hitbox_sizes = hitbox_sizes
+        self.hitbox_width = self.hitbox_sizes[self.current_state][0]
+        self.hitbox_height = self.hitbox_sizes[self.current_state][1]
+        self.hitbox_x = self.x + self.sprite.get_width()/2
+        self.hitbox_y = self.y + self.sprite.get_height() - self.hitbox_height/2
 
     def draw(self):
         self.screen.blit(self.sprite, (self.x, self.y))
