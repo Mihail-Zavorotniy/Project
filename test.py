@@ -93,24 +93,26 @@ def check_collisions(bg_number):
     player.moved = False
 
 fill_sprites()
-all_sprites['mushroom'].set_colorkey((0, 0, 0))
+all_sprites['mushroom'].set_colorkey((0xFFFFFF))
+all_sprites['player'].set_colorkey((0xFFFFFF))
 
-inventory = Inventory(screen, [0, 100], all_sprites['inventory_bar'], 9, 6, all_sprites['empty_slot'])
+
+inventory = Inventory(screen, [0, 100], all_sprites['inventory_bar'], 9, 7, all_sprites['empty_slot'])
 player = Player(screen, [all_sprites['player']], player_starting_coord, 8,
-                [all_sprites['player'].get_width(), all_sprites['player'].get_height()])
-obj1 = ObjectNotChangable(screen, [all_sprites['mushroom']], [200, 500],
-                          [all_sprites['mushroom'].get_width(), all_sprites['mushroom'].get_height()])
-obj2 = ObjectNotChangable(screen, [all_sprites['mushroom']], [200, 400],
-                          [all_sprites['mushroom'].get_width(), all_sprites['mushroom'].get_height()])
-obj3 = ObjectNotChangable(screen, [all_sprites['mushroom']], [300, 300],
-                          [all_sprites['mushroom'].get_width(), all_sprites['mushroom'].get_height()])
+                [all_sprites['player'].get_width()/2, all_sprites['player'].get_height()/16])
+obj1 = Object(screen, [all_sprites['mushroom']], [200, 500],
+                          [[all_sprites['mushroom'].get_width()], [all_sprites['mushroom'].get_height()/8]])
+obj2 = Object(screen, [all_sprites['mushroom']], [500, 400],
+                          [[all_sprites['mushroom'].get_width()], [all_sprites['mushroom'].get_height()/16]])
+obj3 = Object(screen, [all_sprites['mushroom']], [300, 300],
+                          [[all_sprites['mushroom'].get_width()], [all_sprites['mushroom'].get_height()/32]])
 bg1 = Background(screen, all_sprites['starting_background'], [obj1, obj2, obj3])
 bg_manager = BackgroundManager([bg1])
 
 for j in range(3):
     inventory.add_item(obj3)
 for j in range(1):
-    inventory.remove_item(obj1)
+    inventory.remove_item(obj3)
 
 while not finished:
     input_handler()
@@ -120,6 +122,5 @@ while not finished:
     pygame.display.update()
     clock.tick(FPS)
     keyboard.update()
-    print(player.hitbox_x, player.hitbox_y)
 
 pygame.quit()
