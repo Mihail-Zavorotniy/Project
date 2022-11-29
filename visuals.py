@@ -1,16 +1,24 @@
 import pygame
 
 
-class ObjectNotChangable:
-    def __init__(self, screen: pygame.Surface, sprites: list, coord: list, hitbox_size):
+class Object:
+    def __init__(self, screen: pygame.Surface, sprites: list, coord: list, hitbox_sizes, inventory_sprite=None):
         self.screen = screen
-        self.sprite = sprites[0]
+        self.current_state = 0
+        self.sprites = sprites
+        self.sprite = self.sprites[self.current_state]
+        if inventory_sprite != None:
+            self.inventory_sprite = inventory_sprite
+        else:
+            self.inventory_sprite = self.sprite
         self.x = coord[0]
         self.y = coord[1]
-        self.hitbox_width = hitbox_size[0]
-        self.hitbox_height = hitbox_size[1]
-        self.hitbox_x = self.x + self.hitbox_width/2
-        self.hitbox_y = self.y + self.sprite.get_height() - self.hitbox_height / 2
+        self.hitbox_widthes = hitbox_sizes[0]
+        self.hitbox_heights = hitbox_sizes[1]
+        self.hitbox_width = self.hitbox_widthes[self.current_state]
+        self.hitbox_height = self.hitbox_heights[self.current_state]
+        self.hitbox_x = self.x+self.sprites[self.current_state].get_width()/2
+        self.hitbox_y = self.y+self.sprites[self.current_state].get_height()-self.hitbox_heights[self.current_state]/2
 
     def draw(self):
         self.screen.blit(self.sprite, (self.x, self.y))
