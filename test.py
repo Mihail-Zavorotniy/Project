@@ -1,3 +1,5 @@
+import os.path
+
 from constants import *
 from keyboard import *
 from player import *
@@ -15,7 +17,8 @@ all_sprites = {'starting_background': 0,
 
 def fill_sprites():
     for key in all_sprites.keys():
-        all_sprites[key] = pygame.image.load('C:\\Users\\Dell\\Desktop\\sprites\\' + key + '.png').convert()
+        file_name = key + '.png'
+        all_sprites[key] = pygame.image.load(os.path.join('sprites', file_name)).convert()
 
 def input_handler():
     global finished
