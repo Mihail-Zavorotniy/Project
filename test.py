@@ -34,14 +34,27 @@ def input_handler():
             elif (not keyboard.key_pressed['s'][0]) and keyboard.key_pressed['s'][1]:
                 inventory.selected_down()
         elif not player.immobile:
-            if keyboard.key_pressed['w'][1]:
-                player.move('u')
-            if keyboard.key_pressed['a'][1]:
-                player.move('l')
-            if keyboard.key_pressed['s'][1]:
-                player.move('d')
-            if keyboard.key_pressed['d'][1]:
-                player.move('r')
+            if keyboard.key_pressed['w'][1] and keyboard.key_pressed['d'][1]:
+                player.move('u', 2**(1/2))
+                player.move('r', 2**(1/2))
+            elif keyboard.key_pressed['w'][1] and keyboard.key_pressed['a'][1]:
+                player.move('u', 2**(1/2))
+                player.move('l', 2**(1/2))
+            elif keyboard.key_pressed['s'][1] and keyboard.key_pressed['d'][1]:
+                player.move('d', 2**(1/2))
+                player.move('r', 2**(1/2))
+            elif keyboard.key_pressed['s'][1] and keyboard.key_pressed['a'][1]:
+                player.move('d', 2**(1/2))
+                player.move('l', 2**(1/2))
+            else:
+                if keyboard.key_pressed['w'][1]:
+                    player.move('u')
+                if keyboard.key_pressed['a'][1]:
+                    player.move('l')
+                if keyboard.key_pressed['s'][1]:
+                    player.move('d')
+                if keyboard.key_pressed['d'][1]:
+                    player.move('r')
 
 def check_collisions(bg_number):
     if player.hitbox_x - player.hitbox_width/2 < left_barrier:
