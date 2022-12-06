@@ -9,7 +9,8 @@ class Keyboard:
                             'e': [False, False],
                             'a': [False, False],
                             's': [False, False],
-                            'd': [False, False]
+                            'f': [False, False],
+                            'd': [False, False],
                             }
 
     def update(self):
@@ -25,6 +26,8 @@ class Keyboard:
                     self.key_pressed['w'][1] = True
                 if event.key == pygame.K_e:
                     self.key_pressed['e'][1] = True
+                if event.key == pygame.K_f:
+                    self.key_pressed['f'][1] = True
                 if event.key == pygame.K_a:
                     self.key_pressed['a'][1] = True
                 if event.key == pygame.K_s:
@@ -34,6 +37,8 @@ class Keyboard:
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_q:
                     self.key_pressed['q'][1] = False
+                if event.key == pygame.K_f:
+                    self.key_pressed['f'][1] = False
                 if event.key == pygame.K_w:
                     self.key_pressed['w'][1] = False
                 if event.key == pygame.K_e:
