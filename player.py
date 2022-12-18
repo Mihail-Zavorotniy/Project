@@ -15,11 +15,12 @@ class Player:
     hitbox_x, hitbox_y - координаты центра хитбокса
     prev_hitbox_x, prev_hitbox_y - позиция хитбокса на предыдущем фрейме
     '''
-    def __init__(self, screen: pygame.Surface, sprites: list, coord: list,
+    def __init__(self, screen: pygame.Surface, sprites: dict, coord: list,
                   movement_speed, hitbox_size: list):
         '''Конструктор'''
         self.screen = screen
-        self.sprite = sprites[0]
+        self.sprites = sprites
+        self.sprite = sprites['down1']
         self.x = coord[0]
         self.y = coord[1]
         self.v = movement_speed
@@ -40,12 +41,16 @@ class Player:
         self.moved = True
         if direcrion == 'r':
             self.hitbox_x += self.v / norm
+            self.sprite = self.sprites['right1']
         if direcrion == 'l':
             self.hitbox_x -= self.v / norm
+            self.sprite = self.sprites['left1']
         if direcrion == 'u':
             self.hitbox_y -= self.v / norm
+            self.sprite = self.sprites['up1']
         if direcrion == 'd':
             self.hitbox_y += self.v / norm
+            self.sprite = self.sprites['down1']
 
     def draw(self):
         '''Отрисовка игрока'''
