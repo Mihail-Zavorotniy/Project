@@ -2,7 +2,14 @@ import pygame
 
 
 class Keyboard:
+
+    '''класс клавиатуры
+    key pressed - словарь формата 'клавиша': [состояние 1, состояние 2]
+    состояние 1 - предыдущее состояние 2 клавиши
+    состояние 2 - текущее состояние клавиши, true - если клавиша зажата, false - в противном случае
+    '''
     def __init__(self):
+        '''Конструктор'''
         self.key_pressed = {'quit': [False, False],
                             'q': [False, False],
                             'w': [False, False],
@@ -14,6 +21,7 @@ class Keyboard:
                             }
 
     def update(self):
+        '''Обновление состояний клавиш'''
         for k in self.key_pressed.keys():
             self.key_pressed[k][0] = self.key_pressed[k][1]
         for event in pygame.event.get():
