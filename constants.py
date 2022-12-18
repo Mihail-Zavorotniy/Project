@@ -17,3 +17,4 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 finished = False
 player_starting_coord = [450, 350]
+
