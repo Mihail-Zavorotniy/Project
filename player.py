@@ -22,7 +22,7 @@ class Player:
         '''Конструктор'''
         self.screen = screen
         self.sprites = sprites
-        self.sprite = sprites['down1']
+        self.sprite = sprites['down']
         self.x = coord[0]
         self.y = coord[1]
         self.v = movement_speed
@@ -63,6 +63,16 @@ class Player:
             sprite_name = 'down' + str(sprite_number)
             self.sprite = self.sprites[sprite_name]
 
+    def stay(self, direction: str):
+        '''Определяет спрайт стоящего игрока'''
+        if direction == 'r':
+            self.sprite = self.sprites['right']
+        if direction == 'l':
+            self.sprite = self.sprites['left']
+        if direction == 'u':
+            self.sprite = self.sprites['up']
+        if direction == 'd':
+            self.sprite = self.sprites['down']
     def draw(self):
         '''Отрисовка игрока'''
         self.screen.blit(self.sprite,

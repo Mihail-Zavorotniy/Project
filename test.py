@@ -10,13 +10,12 @@ all_sprites = {'starting_background': None,
                'inventory_bar': None,
                'empty_slot': None,
                'mushroom': None,
-               'player': None
                }
 
-player_sprites = {'down1': None, 'down2': None, 'down3': None, 'down4': None, 'down5': None, 'down6': None,
-                  'right1': None, 'right2': None, 'right3': None, 'right4': None, 'right5': None, 'right6': None,
-                  'up1': None, 'up2': None, 'up3': None, 'up4': None, 'up5': None, 'up6': None,
-                  'left1': None, 'left2': None, 'left3': None, 'left4': None, 'left5': None, 'left6': None
+player_sprites = {'down': None, 'down1': None, 'down2': None, 'down3': None, 'down4': None, 'down5': None, 'down6': None,
+                  'right': None, 'right1': None, 'right2': None, 'right3': None, 'right4': None, 'right5': None, 'right6': None,
+                  'up': None, 'up1': None, 'up2': None, 'up3': None, 'up4': None, 'up5': None, 'up6': None,
+                  'left': None, 'left1': None, 'left2': None, 'left3': None, 'left4': None, 'left5': None, 'left6': None
                   }
 
 def fill_sprites():
@@ -84,6 +83,15 @@ def input_handler():
                     player.move('d')
                 if keyboard.key_pressed['d'][1]:
                     player.move('r')
+                if (not keyboard.key_pressed['d'][1]) and (not keyboard.key_pressed['s'][1]) and (not keyboard.key_pressed['a'][1]) and (not keyboard.key_pressed['w'][1]):
+                    if keyboard.key_pressed['w'][0]:
+                        player.stay('u')
+                    if keyboard.key_pressed['a'][0]:
+                        player.stay('l')
+                    if keyboard.key_pressed['s'][0]:
+                        player.stay('d')
+                    if keyboard.key_pressed['d'][0]:
+                        player.stay('r')
 
 
 def check_collisions():
@@ -125,14 +133,13 @@ def check_collisions():
 
 fill_sprites()
 all_sprites['mushroom'].set_colorkey((0xFFFFFF))
-all_sprites['player'].set_colorkey((0xFFFFFF))
 for key in player_sprites.keys():
     player_sprites[key].set_colorkey((0xFFFFFF))
 
 inventory = Inventory(screen, [0, 100], all_sprites['inventory_bar'], 9, 7, all_sprites['empty_slot'])
 
 player = Player(screen, player_sprites, player_starting_coord, 8,
-                [player_sprites['down1'].get_width() / 2, all_sprites['player'].get_height() / 16])
+                [player_sprites['down'].get_width() / 2, player_sprites['down'].get_height() / 16])
 
 obj1 = Object(screen, [all_sprites['mushroom']], [200, 500],
               [[all_sprites['mushroom'].get_width(), all_sprites['mushroom'].get_height() / 8]])
