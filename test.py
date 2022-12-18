@@ -28,46 +28,6 @@ def fill_sprites():
         player_sprites[key] = pygame.image.load(os.path.join('sprites', file_name)).convert()
 
 
-
-
-
-def check_collisions():
-    if player.hitbox_x - player.hitbox_width / 2 < left_barrier:
-        player.hitbox_x = left_barrier + player.hitbox_width / 2
-    if player.hitbox_x + player.hitbox_width / 2 > right_barrier:
-        player.hitbox_x = right_barrier - player.hitbox_width / 2
-    if player.hitbox_y - player.hitbox_height / 2 < top_barrier:
-        player.hitbox_y = top_barrier + player.hitbox_height / 2
-    if player.hitbox_y + player.hitbox_height / 2 > bottom_barrier:
-        player.hitbox_y = bottom_barrier - player.hitbox_height / 2
-
-    for obj in bg_manager.current_bg.all_objects:
-        if (abs(player.hitbox_x - obj.hitbox_x) < (player.hitbox_width + obj.hitbox_width) / 2 and
-                abs(player.hitbox_y - obj.hitbox_y) < (player.hitbox_height + obj.hitbox_height) / 2):
-            if ((player.hitbox_width + obj.hitbox_width) / 2 - abs(player.hitbox_x - obj.hitbox_x) <
-                    (player.hitbox_height + obj.hitbox_height) / 2 - abs(player.hitbox_y - obj.hitbox_y)):
-                if player.prev_hitbox_x > obj.hitbox_x:
-                    player.hitbox_x = obj.hitbox_x + (player.hitbox_width + obj.hitbox_width) / 2
-                else:
-                    player.hitbox_x = obj.hitbox_x - (player.hitbox_width + obj.hitbox_width) / 2
-            elif ((player.hitbox_width + obj.hitbox_width) / 2 - abs(player.hitbox_x - obj.hitbox_x) >
-                  (player.hitbox_height + obj.hitbox_height) / 2 - abs(player.hitbox_y - obj.hitbox_y)):
-                if player.prev_hitbox_y > obj.hitbox_y:
-                    player.hitbox_y = obj.hitbox_y + (player.hitbox_height + obj.hitbox_height) / 2
-                else:
-                    player.hitbox_y = obj.hitbox_y - (player.hitbox_height + obj.hitbox_height) / 2
-            else:
-                if player.prev_hitbox_x > obj.hitbox_x:
-                    player.hitbox_x = obj.hitbox_x + (player.hitbox_width + obj.hitbox_width) / 2
-                else:
-                    player.hitbox_x = obj.hitbox_x - (player.hitbox_width + obj.hitbox_width) / 2
-                if player.prev_hitbox_y > obj.hitbox_y:
-                    player.hitbox_y = obj.hitbox_y + (player.hitbox_height + obj.hitbox_height) / 2
-                else:
-                    player.hitbox_y = obj.hitbox_y - (player.hitbox_height + obj.hitbox_height) / 2
-    player.moved = False
-
-
 fill_sprites()
 all_sprites['mushroom'].set_colorkey((0xFFFFFF))
 for key in player_sprites.keys():
@@ -100,7 +60,7 @@ bg_manager = BackgroundManager([bg1], 0)
 
 while not finished:
     finished = input_handler(inventory, player, bg_manager)
-    check_collisions()
+    check_collisions(player, bg_manager)
     bg_manager.draw_scenery(player)
     inventory.draw()
     pygame.display.update()

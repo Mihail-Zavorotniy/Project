@@ -2,8 +2,50 @@ from copy import copy
 from keyboard import *
 from player import *
 from inventory_and_menu import *
+from constants import *
 
 
+def check_collisions(player: Player, bg_manager):
+    '''
+    функция проверяет коллизии
+    player: объект класса Player
+    bg_manager: бэкграунд, объекты на нем
+    return: ничего не возвращает
+    '''
+    if player.hitbox_x - player.hitbox_width / 2 < left_barrier:
+        player.hitbox_x = left_barrier + player.hitbox_width / 2
+    if player.hitbox_x + player.hitbox_width / 2 > right_barrier:
+        player.hitbox_x = right_barrier - player.hitbox_width / 2
+    if player.hitbox_y - player.hitbox_height / 2 < top_barrier:
+        player.hitbox_y = top_barrier + player.hitbox_height / 2
+    if player.hitbox_y + player.hitbox_height / 2 > bottom_barrier:
+        player.hitbox_y = bottom_barrier - player.hitbox_height / 2
+
+    for obj in bg_manager.current_bg.all_objects:
+        if (abs(player.hitbox_x - obj.hitbox_x) < (player.hitbox_width + obj.hitbox_width) / 2 and
+                abs(player.hitbox_y - obj.hitbox_y) < (player.hitbox_height + obj.hitbox_height) / 2):
+            if ((player.hitbox_width + obj.hitbox_width) / 2 - abs(player.hitbox_x - obj.hitbox_x) <
+                    (player.hitbox_height + obj.hitbox_height) / 2 - abs(player.hitbox_y - obj.hitbox_y)):
+                if player.prev_hitbox_x > obj.hitbox_x:
+                    player.hitbox_x = obj.hitbox_x + (player.hitbox_width + obj.hitbox_width) / 2
+                else:
+                    player.hitbox_x = obj.hitbox_x - (player.hitbox_width + obj.hitbox_width) / 2
+            elif ((player.hitbox_width + obj.hitbox_width) / 2 - abs(player.hitbox_x - obj.hitbox_x) >
+                  (player.hitbox_height + obj.hitbox_height) / 2 - abs(player.hitbox_y - obj.hitbox_y)):
+                if player.prev_hitbox_y > obj.hitbox_y:
+                    player.hitbox_y = obj.hitbox_y + (player.hitbox_height + obj.hitbox_height) / 2
+                else:
+                    player.hitbox_y = obj.hitbox_y - (player.hitbox_height + obj.hitbox_height) / 2
+            else:
+                if player.prev_hitbox_x > obj.hitbox_x:
+                    player.hitbox_x = obj.hitbox_x + (player.hitbox_width + obj.hitbox_width) / 2
+                else:
+                    player.hitbox_x = obj.hitbox_x - (player.hitbox_width + obj.hitbox_width) / 2
+                if player.prev_hitbox_y > obj.hitbox_y:
+                    player.hitbox_y = obj.hitbox_y + (player.hitbox_height + obj.hitbox_height) / 2
+                else:
+                    player.hitbox_y = obj.hitbox_y - (player.hitbox_height + obj.hitbox_height) / 2
+    player.moved = False
 
 
 
@@ -12,7 +54,7 @@ def check_interaction(bg_manager, player: Player, inventory: Inventory):
     for obj in bg_manager.current_bg.interactable_objects:
             if ((abs(player.hitbox_x - obj.hitbox_x) <= (player.hitbox_width + obj.hitbox_width)/2 + obj.inter_area) and
                 (abs(player.hitbox_y - obj.hitbox_y) <= (player.hitbox_height + obj.hitbox_height)/2 + obj.inter_area)):
-                print(obj.pickup)
+                #print(obj.pickup)
                 interacted = True
                 if obj.pickup:
                     inventory.add_item(obj)
@@ -22,6 +64,13 @@ def check_interaction(bg_manager, player: Player, inventory: Inventory):
                 break
 
 def input_handler(inventory: Inventory, player: Player, bg_manager):
+    '''
+    функция обрабатывает события клавиатуры
+    inventory - объект типа Inventory
+    player - объект типа Player
+    bg_manager - бэкграунд, объекты на нем
+    return: возвращает текущее значение переменной finished (true - окно игры закрывается, false - иначе)
+    '''
     finished = False
     if keyboard.key_pressed['quit'][1]:
         finished = True
