@@ -10,6 +10,7 @@ all_sprites = {'starting_background': None,
                'inventory_bar': None,
                'empty_slot': None,
                'mushroom': None,
+               'window': None
                }
 
 player_sprites = {'down': None, 'down1': None, 'down2': None, 'down3': None, 'down4': None, 'down5': None, 'down6': None,
@@ -27,71 +28,7 @@ def fill_sprites():
         player_sprites[key] = pygame.image.load(os.path.join('sprites', file_name)).convert()
 
 
-def check_interaction():
-    interacted = False
-    for obj in bg_manager.current_bg.interactable_objects:
-            if ((abs(player.hitbox_x - obj.hitbox_x) <= (player.hitbox_width + obj.hitbox_width)/2 + obj.inter_area) and
-                (abs(player.hitbox_y - obj.hitbox_y) <= (player.hitbox_height + obj.hitbox_height)/2 + obj.inter_area)):
-                print(obj.pickup)
-                interacted = True
-                if obj.pickup:
-                    inventory.add_item(obj)
-                    bg_manager.current_bg.interactable_objects.remove(obj)
-                    bg_manager.current_bg.all_objects.remove(obj)
-            if interacted:
-                break
 
-
-
-def input_handler():
-    global finished
-    if keyboard.key_pressed['quit'][1]:
-        finished = True
-    else:
-        if keyboard.key_pressed['q'][1]:
-            inventory.active = True
-            player.immobile = True
-        elif keyboard.key_pressed['e'][1]:
-            inventory.active = False
-            player.immobile = False
-        if keyboard.key_pressed['f'][1] and not keyboard.key_pressed['f'][0]:
-            check_interaction()
-        if inventory.active:
-            if keyboard.key_pressed['w'][1] and not keyboard.key_pressed['w'][0]:
-                inventory.selected_up()
-            elif keyboard.key_pressed['s'][1] and not keyboard.key_pressed['s'][0]:
-                inventory.selected_down()
-        elif not player.immobile:
-            if keyboard.key_pressed['w'][1] and keyboard.key_pressed['d'][1]:
-                player.move('u', 2 ** (1 / 2))
-                player.move('r', 2 ** (1 / 2))
-            elif keyboard.key_pressed['w'][1] and keyboard.key_pressed['a'][1]:
-                player.move('u', 2 ** (1 / 2))
-                player.move('l', 2 ** (1 / 2))
-            elif keyboard.key_pressed['s'][1] and keyboard.key_pressed['d'][1]:
-                player.move('d', 2 ** (1 / 2))
-                player.move('r', 2 ** (1 / 2))
-            elif keyboard.key_pressed['s'][1] and keyboard.key_pressed['a'][1]:
-                player.move('d', 2 ** (1 / 2))
-                player.move('l', 2 ** (1 / 2))
-            else:
-                if keyboard.key_pressed['w'][1]:
-                    player.move('u')
-                if keyboard.key_pressed['a'][1]:
-                    player.move('l')
-                if keyboard.key_pressed['s'][1]:
-                    player.move('d')
-                if keyboard.key_pressed['d'][1]:
-                    player.move('r')
-                if (not keyboard.key_pressed['d'][1]) and (not keyboard.key_pressed['s'][1]) and (not keyboard.key_pressed['a'][1]) and (not keyboard.key_pressed['w'][1]):
-                    if keyboard.key_pressed['w'][0]:
-                        player.stay('u')
-                    if keyboard.key_pressed['a'][0]:
-                        player.stay('l')
-                    if keyboard.key_pressed['s'][0]:
-                        player.stay('d')
-                    if keyboard.key_pressed['d'][0]:
-                        player.stay('r')
 
 
 def check_collisions():
@@ -162,7 +99,7 @@ bg1 = Background(screen, all_sprites['starting_background'], [obj1, obj2, obj3],
 bg_manager = BackgroundManager([bg1], 0)
 
 while not finished:
-    input_handler()
+    finished = input_handler(inventory, player, bg_manager)
     check_collisions()
     bg_manager.draw_scenery(player)
     inventory.draw()
