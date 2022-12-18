@@ -7,7 +7,9 @@ all_sprites = {'starting_background': None,
                'inventory_bar': None,
                'empty_slot': None,
                'mushroom': None,
-               'window': None
+               'window': None,
+               'wadrode_opened': None,
+               'wadrode_closed': None
                }
 
 player_sprites = {'down': None, 'down1': None, 'down2': None, 'down3': None, 'down4': None, 'down5': None, 'down6': None,
@@ -39,5 +41,9 @@ for i in range(1, 10):
     inter_obj = ObjectInteractable(screen, [all_sprites['mushroom']], [i*100, 550],
                   [[all_sprites['mushroom'].get_width(), all_sprites['mushroom'].get_height()/i]], True)
     inter_list.append(inter_obj)
+
+wadrobe = ObjectInteractable(screen, [all_sprites['wadrode_closed'], all_sprites['wadrode_opened']], [400, 50],
+                             [[all_sprites['wadrode_closed'].get_width(), all_sprites['wadrode_closed'].get_height() / 8]], False)
+inter_list.append(wadrobe)
 
 bg1 = Background(screen, all_sprites['starting_background'], [obj1], inter_list)
