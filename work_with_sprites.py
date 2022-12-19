@@ -7,7 +7,6 @@ all_sprites = {'starting_background': None,
                'inventory_bar': None,
                'empty_slot': None,
                'mushroom': None,
-               'key': None,
                'window': None,
                'wadrobe_opened': None,
                'wadrobe_closed': None,
@@ -48,18 +47,13 @@ wadrobe_hitbox_sizes = [[all_sprites['wadrobe_closed'].get_width(), all_sprites[
 wadrobe = ObjectInteractable(screen, [all_sprites['wadrobe_closed'], all_sprites['wadrobe_opened']], [400, 50],
                              wadrobe_hitbox_sizes, False)
 
-key1 = ObjectInteractable(screen, [all_sprites['key']], [100, 550],
-                  [[all_sprites['key'].get_width(), all_sprites['key'].get_height()]], True)
-
-inter_list.append(key1)
-
-wadrobe.required_item = key1
-
 inter_list.append(wadrobe)
 
 key = ObjectInteractable(screen, [all_sprites['key']], [100, 400],
                   [[all_sprites['key'].get_width(), all_sprites['key'].get_height()/4]], True)
 
 inter_list.append(key)
+
+wadrobe.required_item = key
 
 bg1 = Background(screen, all_sprites['starting_background'], [obj1], inter_list)
