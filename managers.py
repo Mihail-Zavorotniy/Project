@@ -50,6 +50,9 @@ def check_collisions(player: Player, bg_manager):
 
 
 def check_interaction(bg_manager, player: Player, inventory: Inventory):
+    '''
+    функция проверяет находится ли игрок в зоне объектов
+    '''
     interacted = False
     for obj in bg_manager.current_bg.interactable_objects:
             if ((abs(player.hitbox_x - obj.hitbox_x) <= (player.hitbox_width + obj.hitbox_width)/2 + obj.inter_area) and
