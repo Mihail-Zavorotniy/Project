@@ -42,8 +42,9 @@ for i in range(1, 10):
                   [[all_sprites['mushroom'].get_width(), all_sprites['mushroom'].get_height()/i]], True)
     inter_list.append(inter_obj)
 
+wadrobe_hitbox_sizes = [[all_sprites['wadrobe_closed'].get_width(), all_sprites['wadrobe_closed'].get_height() / 8], [all_sprites['wadrobe_opened'].get_width(), all_sprites['wadrobe_opened'].get_height() / 8]]
 wadrobe = ObjectInteractable(screen, [all_sprites['wadrobe_closed'], all_sprites['wadrobe_opened']], [400, 50],
-                             [[all_sprites['wadrobe_closed'].get_width(), all_sprites['wadrobe_closed'].get_height() / 8]], False)
+                             wadrobe_hitbox_sizes, False)
 inter_list.append(wadrobe)
 
 bg1 = Background(screen, all_sprites['starting_background'], [obj1], inter_list)
