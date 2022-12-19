@@ -100,7 +100,7 @@ def input_handler(inventory: Inventory, player: Player, bg_manager):
                 inventory.selected_down()
             elif keyboard.key_pressed['d'][1] and not keyboard.key_pressed['d'][0]:
                 if(inventory.contents[inventory.selected_slot] != None):
-                    bg1.add_object(inventory.contents[inventory.selected_slot], player, bg_manager)
+                    bg1.add_object(inventory.contents[inventory.selected_slot], player)
                     print(inventory.contents[inventory.selected_slot].x, inventory.contents[inventory.selected_slot].y)
                     inventory.remove_item(inventory.contents[inventory.selected_slot])
         elif not player.immobile:
