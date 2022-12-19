@@ -63,6 +63,9 @@ def check_interaction(bg_manager, player: Player, inventory: Inventory):
                     inventory.add_item(obj)
                     bg_manager.current_bg.interactable_objects.remove(obj)
                     bg_manager.current_bg.all_objects.remove(obj)
+                elif not obj.pickup:
+                    new_st = (obj.current_state + 1) % 2
+                    obj.change_state(new.st)
             if interacted:
                 break
 
