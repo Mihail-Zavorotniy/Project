@@ -55,7 +55,9 @@ class ObjectInteractable(Object):
             self.required_item = required_item
 
     def change_state(self, new_state):
-        '''Изменить состояние объекта'''
+        '''Изменить состояние объекта
+        nex_state - номер состояния объекта
+        '''
         self.current_state = new_state
         self.sprite = self.sprites[self.current_state]
         self.hitbox_width = self.hitbox_sizes[self.current_state][0]
@@ -107,49 +109,49 @@ class Background:
         self.screen.blit(self.sprite, (self.x, self.y))
 
 
-    def check_collisions_for_objects(self, obj: ObjectInteractable, bg_manager):
+#    def check_collisions_for_objects(self, obj: ObjectInteractable, bg_manager):
+#        if obj.hitbox_x - obj.hitbox_width / 2 < left_barrier:
+#            obj.hitbox_x = left_barrier + obj.hitbox_width / 2
+#        if obj.hitbox_x + obj.hitbox_width / 2 > right_barrier:
+#            obj.hitbox_x = right_barrier - obj.hitbox_width / 2
+#        if obj.hitbox_y - obj.hitbox_height / 2 < top_barrier:
+#            obj.hitbox_y = top_barrier + obj.hitbox_height / 2
+#        if obj.hitbox_y + obj.hitbox_height / 2 > bottom_barrier:
+#            obj.hitbox_y = bottom_barrier - obj.hitbox_height / 2
+#
+#        for obj in bg_manager.current_bg.all_objects:
+#            if (abs(obj.hitbox_x - obj.hitbox_x) < (obj.hitbox_width + obj.hitbox_width) / 2 and
+#                    abs(obj.hitbox_y - obj.hitbox_y) < (obj.hitbox_height + obj.hitbox_height) / 2):
+#                if ((obj.hitbox_width + obj.hitbox_width) / 2 - abs(obj.hitbox_x - obj.hitbox_x) <
+#                        (obj.hitbox_height + obj.hitbox_height) / 2 - abs(obj.hitbox_y - obj.hitbox_y)):
+#                    if obj.prev_hitbox_x > obj.hitbox_x:
+#                        obj.hitbox_x = obj.hitbox_x + (obj.hitbox_width + obj.hitbox_width) / 2
+#                    else:
+#                        obj.hitbox_x = obj.hitbox_x - (obj.hitbox_width + obj.hitbox_width) / 2
+#                elif ((obj.hitbox_width + obj.hitbox_width) / 2 - abs(obj.hitbox_x - obj.hitbox_x) >
+#                      (obj.hitbox_height + obj.hitbox_height) / 2 - abs(obj.hitbox_y - obj.hitbox_y)):
+#                    if obj.prev_hitbox_y > obj.hitbox_y:
+#                        obj.hitbox_y = obj.hitbox_y + (obj.hitbox_height + obj.hitbox_height) / 2
+#                    else:
+#                        obj.hitbox_y = obj.hitbox_y - (obj.hitbox_height + obj.hitbox_height) / 2
+#                else:
+#                    if obj.prev_hitbox_x > obj.hitbox_x:
+#                        obj.hitbox_x = obj.hitbox_x + (obj.hitbox_width + obj.hitbox_width) / 2
+#                    else:
+#                        obj.hitbox_x = obj.hitbox_x - (obj.hitbox_width + obj.hitbox_width) / 2
+#                    if obj.prev_hitbox_y > obj.hitbox_y:
+#                        obj.hitbox_y = obj.hitbox_y + (obj.hitbox_height + obj.hitbox_height) / 2
+#                    else:
+#                        obj.hitbox_y = obj.hitbox_y - (obj.hitbox_height + obj.hitbox_height) / 2
+
+
+    def add_object(self, obj: ObjectInteractable, player: Player):
         '''
-        функция проверяет коллизии
-        player: объект класса Player
-        bg_manager: бэкграунд, объекты на нем
-        return: ничего не возвращает
+        функция добавляет объект из инвентаря на текущий бэкграунд рядом с игроком
+        obj - объект типа ObjectInteractable, который мы хотим добавить на бэкграунд из инвентаря
+        player - объект типа Player
+        return - ничего
         '''
-        if obj.hitbox_x - obj.hitbox_width / 2 < left_barrier:
-            obj.hitbox_x = left_barrier + obj.hitbox_width / 2
-        if obj.hitbox_x + obj.hitbox_width / 2 > right_barrier:
-            obj.hitbox_x = right_barrier - obj.hitbox_width / 2
-        if obj.hitbox_y - obj.hitbox_height / 2 < top_barrier:
-            obj.hitbox_y = top_barrier + obj.hitbox_height / 2
-        if obj.hitbox_y + obj.hitbox_height / 2 > bottom_barrier:
-            obj.hitbox_y = bottom_barrier - obj.hitbox_height / 2
-
-        for obj in bg_manager.current_bg.all_objects:
-            if (abs(obj.hitbox_x - obj.hitbox_x) < (obj.hitbox_width + obj.hitbox_width) / 2 and
-                    abs(obj.hitbox_y - obj.hitbox_y) < (obj.hitbox_height + obj.hitbox_height) / 2):
-                if ((obj.hitbox_width + obj.hitbox_width) / 2 - abs(obj.hitbox_x - obj.hitbox_x) <
-                        (obj.hitbox_height + obj.hitbox_height) / 2 - abs(obj.hitbox_y - obj.hitbox_y)):
-                    if obj.prev_hitbox_x > obj.hitbox_x:
-                        obj.hitbox_x = obj.hitbox_x + (obj.hitbox_width + obj.hitbox_width) / 2
-                    else:
-                        obj.hitbox_x = obj.hitbox_x - (obj.hitbox_width + obj.hitbox_width) / 2
-                elif ((obj.hitbox_width + obj.hitbox_width) / 2 - abs(obj.hitbox_x - obj.hitbox_x) >
-                      (obj.hitbox_height + obj.hitbox_height) / 2 - abs(obj.hitbox_y - obj.hitbox_y)):
-                    if obj.prev_hitbox_y > obj.hitbox_y:
-                        obj.hitbox_y = obj.hitbox_y + (obj.hitbox_height + obj.hitbox_height) / 2
-                    else:
-                        obj.hitbox_y = obj.hitbox_y - (obj.hitbox_height + obj.hitbox_height) / 2
-                else:
-                    if obj.prev_hitbox_x > obj.hitbox_x:
-                        obj.hitbox_x = obj.hitbox_x + (obj.hitbox_width + obj.hitbox_width) / 2
-                    else:
-                        obj.hitbox_x = obj.hitbox_x - (obj.hitbox_width + obj.hitbox_width) / 2
-                    if obj.prev_hitbox_y > obj.hitbox_y:
-                        obj.hitbox_y = obj.hitbox_y + (obj.hitbox_height + obj.hitbox_height) / 2
-                    else:
-                        obj.hitbox_y = obj.hitbox_y - (obj.hitbox_height + obj.hitbox_height) / 2
-
-
-    def add_object(self, obj: ObjectInteractable, player: Player, bg_manager):
         obj.x = player.hitbox_x
         obj.y = player.hitbox_y + obj.hitbox_height
         obj.hitbox_x = obj.x + obj.sprite.get_width() / 2
