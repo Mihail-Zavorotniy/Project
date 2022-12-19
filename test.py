@@ -10,7 +10,7 @@ from work_with_sprites import *
 
 inventory = Inventory(screen, [0, 100], all_sprites['inventory_bar'], 9, 7, all_sprites['empty_slot'])
 player = Player(screen, player_sprites, player_starting_coord, 8,
-                [player_sprites['down'].get_width() / 2, player_sprites['down'].get_height() / 16])
+                [player_sprites['down'].get_width() / 2, player_sprites['down'].get_height() / 8])
 
 bg_manager = BackgroundManager([bg1], 0)
 
