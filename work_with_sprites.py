@@ -8,6 +8,7 @@ all_sprites = {'starting_background': None,
                'empty_slot': None,
                'mushroom': None,
                'fruit': None,
+               'vase': None,
                'window': None,
                'wadrobe_opened': None,
                'wadrobe_closed': None,
@@ -66,6 +67,11 @@ inter_list.append(key)
 fruit = ObjectInteractable(screen, [all_sprites['fruit']], [200, 400],
                            [[all_sprites['fruit'].get_width(), all_sprites['fruit'].get_height() / 4]], True)
 inter_list.append(fruit)
+
+vase = ObjectInteractable(screen, [all_sprites['vase']], [600, 350],
+                          [[all_sprites['vase'].get_width(), all_sprites['vase'].get_height() / 4]], True)
+inter_list.append(vase)
+
 wadrobe.required_item = key
 
 bg1 = Background(screen, all_sprites['starting_background'], [window], inter_list)
