@@ -31,10 +31,10 @@ def fill_sprites():
 
 fill_sprites()
 
-'''Создание одного бэкграунда'''
+'''Создание одного бэкграунда и объектов в нем'''
 
-obj1 = Object(screen, [all_sprites['window']], [200, 30],
-              [[all_sprites['window'].get_width(), all_sprites['window'].get_height() / 8]])
+window = Object(screen, [all_sprites['window']], [200, 30],
+                [[all_sprites['window'].get_width(), all_sprites['window'].get_height() / 8]])
 
 inter_obj = None
 inter_list = []
@@ -56,4 +56,4 @@ inter_list.append(key)
 
 wadrobe.required_item = key
 
-bg1 = Background(screen, all_sprites['starting_background'], [obj1], inter_list)
+bg1 = Background(screen, all_sprites['starting_background'], [window], inter_list)

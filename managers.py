@@ -3,6 +3,7 @@ from keyboard import *
 from player import *
 from inventory_and_menu import *
 from constants import *
+from work_with_sprites import *
 
 
 def check_collisions(player: Player, bg_manager):
@@ -96,6 +97,11 @@ def input_handler(inventory: Inventory, player: Player, bg_manager):
                 inventory.selected_up()
             elif keyboard.key_pressed['s'][1] and not keyboard.key_pressed['s'][0]:
                 inventory.selected_down()
+            elif keyboard.key_pressed['d'][1] and not keyboard.key_pressed['d'][0]:
+                if(inventory.contents[inventory.selected_slot] != None):
+                    bg1.add_object(inventory.contents[inventory.selected_slot])
+                    print(inventory.contents[inventory.selected_slot].x, inventory.contents[inventory.selected_slot].y)
+                    inventory.remove_item(inventory.contents[inventory.selected_slot])
         elif not player.immobile:
             if keyboard.key_pressed['w'][1] and keyboard.key_pressed['d'][1]:
                 player.move('u', 2 ** (1 / 2))

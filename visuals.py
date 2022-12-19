@@ -104,3 +104,8 @@ class Background:
     def draw(self):
         '''Отрисовка бэкграунда'''
         self.screen.blit(self.sprite, (self.x, self.y))
+
+    def add_object(self, obj):
+        self.interactable_objects.append(obj)
+        self.interactable_objects = sorted(self.interactable_objects, key=lambda t: t.hitbox_y)
+        self.all_objects = sorted((self.objects + self.interactable_objects), key=lambda t: t.hitbox_y)
