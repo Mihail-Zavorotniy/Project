@@ -17,6 +17,7 @@ class Inventory:
     x, y - координаты левого верхнего угла инвентаря
     selected_slot - текущий выбранный слот инвентаря
     '''
+
     def __init__(self, screen, coord, sprite, slots_amount, border_width, empty_sprite, border_color=0xFFFFFF):
         self.screen = screen
         self.active = False
@@ -61,24 +62,24 @@ class Inventory:
         draw.line(self.screen, self.border_color,
                   (self.x,
                    self.y + self.slot_size + 3 * self.border_width / 2 + self.selected_slot * (
-                               self.slot_size + self.border_width)),
+                           self.slot_size + self.border_width)),
                   (self.x + self.slot_size + 2 * self.border_width,
                    self.y + self.slot_size + 3 * self.border_width / 2 + self.selected_slot * (
-                               self.slot_size + self.border_width)),
+                           self.slot_size + self.border_width)),
                   self.border_width)
         draw.line(self.screen, self.border_color,
                   (self.x + self.border_width / 2,
                    self.y + self.selected_slot * (self.slot_size + self.border_width)),
                   (self.x + self.border_width / 2,
                    self.y + self.slot_size + 2 * self.border_width + self.selected_slot * (
-                               self.slot_size + self.border_width)),
+                           self.slot_size + self.border_width)),
                   self.border_width)
         draw.line(self.screen, self.border_color,
                   (self.x + self.slot_size + 3 * self.border_width / 2,
                    self.y + self.selected_slot * (self.slot_size + self.border_width)),
                   (self.x + self.slot_size + 3 * self.border_width / 2,
                    self.y + self.slot_size + 2 * self.border_width + self.selected_slot * (
-                               self.slot_size + self.border_width)),
+                           self.slot_size + self.border_width)),
                   self.border_width)
 
     def add_item(self, obj):

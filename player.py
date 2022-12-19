@@ -2,7 +2,6 @@ import pygame
 
 
 class Player:
-
     '''
     класс игрока
     screen - экран, на котором расположен игрок
@@ -17,8 +16,9 @@ class Player:
     animation - определяет текущий спрайт при движении
     animation_speed - раз в сколько фреймов меняется спрайт
     '''
+
     def __init__(self, screen: pygame.Surface, sprites: dict, coord: list,
-                  movement_speed, hitbox_size: list):
+                 movement_speed, hitbox_size: list):
         '''Конструктор'''
         self.screen = screen
         self.sprites = sprites
@@ -73,8 +73,9 @@ class Player:
             self.sprite = self.sprites['up']
         if direction == 'd':
             self.sprite = self.sprites['down']
+
     def draw(self):
         '''Отрисовка игрока'''
         self.screen.blit(self.sprite,
-                        (self.hitbox_x - self.sprite.get_width() / 2,
-                         self.hitbox_y + self.hitbox_height/2 - self.sprite.get_height()))
+                         (self.hitbox_x - self.sprite.get_width() / 2,
+                          self.hitbox_y + self.hitbox_height / 2 - self.sprite.get_height()))

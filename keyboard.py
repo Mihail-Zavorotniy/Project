@@ -2,12 +2,12 @@ import pygame
 
 
 class Keyboard:
-
     '''класс клавиатуры
     key pressed - словарь формата 'клавиша': [состояние 1, состояние 2]
     состояние 1 - предыдущее состояние 2 клавиши
     состояние 2 - текущее состояние клавиши, true - если клавиша зажата, false - в противном случае
     '''
+
     def __init__(self):
         '''Конструктор'''
         self.key_pressed = {'quit': [False, False],
@@ -57,5 +57,6 @@ class Keyboard:
                     self.key_pressed['s'][1] = False
                 if event.key == pygame.K_d:
                     self.key_pressed['d'][1] = False
+
 
 keyboard = Keyboard()

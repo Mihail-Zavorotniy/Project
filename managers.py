@@ -49,28 +49,27 @@ def check_collisions(player: Player, bg_manager):
     player.moved = False
 
 
-
-
 def check_interaction(bg_manager, player: Player, inventory: Inventory):
     '''
     функция проверяет находится ли игрок в зоне объектов
     '''
     interacted = False
     for obj in bg_manager.current_bg.interactable_objects:
-            if ((abs(player.hitbox_x - obj.hitbox_x) <= (player.hitbox_width + obj.hitbox_width)/2 + obj.inter_area) and
-                (abs(player.hitbox_y - obj.hitbox_y) <= (player.hitbox_height + obj.hitbox_height)/2 + obj.inter_area)):
-                #print(obj.pickup)
-                interacted = True
-                if obj.pickup:
-                    inventory.add_item(obj)
-                    bg_manager.current_bg.interactable_objects.remove(obj)
-                    bg_manager.current_bg.all_objects.remove(obj)
-                elif not obj.pickup:
-                    if obj.required_item == inventory.contents[inventory.selected_slot] or obj.required_item == None:
-                        new_st = (obj.current_state + 1) % int(len(obj.sprites))
-                        obj.change_state(new_st)
-            if interacted:
-                break
+        if ((abs(player.hitbox_x - obj.hitbox_x) <= (player.hitbox_width + obj.hitbox_width) / 2 + obj.inter_area) and
+                (abs(player.hitbox_y - obj.hitbox_y) <= (
+                        player.hitbox_height + obj.hitbox_height) / 2 + obj.inter_area)):
+            # print(obj.pickup)
+            interacted = True
+            if obj.pickup:
+                inventory.add_item(obj)
+                bg_manager.current_bg.interactable_objects.remove(obj)
+                bg_manager.current_bg.all_objects.remove(obj)
+            elif not obj.pickup:
+                if obj.required_item == inventory.contents[inventory.selected_slot] or obj.required_item == None:
+                    new_st = (obj.current_state + 1) % int(len(obj.sprites))
+                    obj.change_state(new_st)
+        if interacted:
+            break
 
 
 def input_handler(inventory: Inventory, player: Player, bg_manager):
@@ -99,7 +98,7 @@ def input_handler(inventory: Inventory, player: Player, bg_manager):
             elif keyboard.key_pressed['s'][1] and not keyboard.key_pressed['s'][0]:
                 inventory.selected_down()
             elif keyboard.key_pressed['d'][1] and not keyboard.key_pressed['d'][0]:
-                if(inventory.contents[inventory.selected_slot] != None):
+                if (inventory.contents[inventory.selected_slot] != None):
                     bg1.add_object(inventory.contents[inventory.selected_slot], player)
                     print(inventory.contents[inventory.selected_slot].x, inventory.contents[inventory.selected_slot].y)
                     inventory.remove_item(inventory.contents[inventory.selected_slot])
@@ -125,7 +124,8 @@ def input_handler(inventory: Inventory, player: Player, bg_manager):
                     player.move('d')
                 if keyboard.key_pressed['d'][1]:
                     player.move('r')
-                if (not keyboard.key_pressed['d'][1]) and (not keyboard.key_pressed['s'][1]) and (not keyboard.key_pressed['a'][1]) and (not keyboard.key_pressed['w'][1]):
+                if (not keyboard.key_pressed['d'][1]) and (not keyboard.key_pressed['s'][1]) and (
+                not keyboard.key_pressed['a'][1]) and (not keyboard.key_pressed['w'][1]):
                     if keyboard.key_pressed['w'][0]:
                         player.stay('u')
                     if keyboard.key_pressed['a'][0]:
@@ -137,14 +137,12 @@ def input_handler(inventory: Inventory, player: Player, bg_manager):
     return finished
 
 
-
-
 class BackgroundManager:
-
     '''класс BackgroungManager
     backgrounds - список всех бэкграундов в игре
     current_bg - бэкграунд локации, в которой надожится персонаж
     '''
+
     def __init__(self, backgrounds, current_bg_number):
         '''Конструктор'''
         self.backgrounds = backgrounds
@@ -160,7 +158,7 @@ class BackgroundManager:
         objects_to_draw = copy(self.current_bg.all_objects)
         player_drawn = False
         for obj in objects_to_draw:
-            if obj.y + obj.sprite.get_height() < player.hitbox_y + player.hitbox_height/2 or player_drawn:
+            if obj.y + obj.sprite.get_height() < player.hitbox_y + player.hitbox_height / 2 or player_drawn:
                 obj.draw()
             else:
                 player.draw()
