@@ -7,6 +7,7 @@ all_sprites = {'starting_background': None,
                'inventory_bar': None,
                'empty_slot': None,
                'mushroom': None,
+               'fruit': None,
                'window': None,
                'wadrobe_opened': None,
                'wadrobe_closed': None,
@@ -38,8 +39,8 @@ window = Object(screen, [all_sprites['window']], [200, 30],
 
 inter_obj = None
 inter_list = []
-for i in range(1, 10):
-    inter_obj = ObjectInteractable(screen, [all_sprites['mushroom']], [i*100, 550],
+for i in range(1, 5):
+    inter_obj = ObjectInteractable(screen, [all_sprites['mushroom']], [i*100 + 200, 550],
                   [[all_sprites['mushroom'].get_width(), all_sprites['mushroom'].get_height()/4]], True)
     inter_list.append(inter_obj)
 
@@ -51,9 +52,11 @@ inter_list.append(wadrobe)
 
 key = ObjectInteractable(screen, [all_sprites['key']], [100, 400],
                   [[all_sprites['key'].get_width(), all_sprites['key'].get_height()/4]], True)
-
 inter_list.append(key)
 
+fruit = ObjectInteractable(screen, [all_sprites['fruit']], [200, 400],
+                  [[all_sprites['fruit'].get_width(), all_sprites['fruit'].get_height()/4]], True)
+inter_list.append(fruit)
 wadrobe.required_item = key
 
 bg1 = Background(screen, all_sprites['starting_background'], [window], inter_list)
