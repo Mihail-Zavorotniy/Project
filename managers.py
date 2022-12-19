@@ -50,6 +50,7 @@ def check_collisions(player: Player, bg_manager):
 
 
 
+
 def check_interaction(bg_manager, player: Player, inventory: Inventory):
     '''
     функция проверяет находится ли игрок в зоне объектов
@@ -99,7 +100,7 @@ def input_handler(inventory: Inventory, player: Player, bg_manager):
                 inventory.selected_down()
             elif keyboard.key_pressed['d'][1] and not keyboard.key_pressed['d'][0]:
                 if(inventory.contents[inventory.selected_slot] != None):
-                    bg1.add_object(inventory.contents[inventory.selected_slot])
+                    bg1.add_object(inventory.contents[inventory.selected_slot], player, bg_manager)
                     print(inventory.contents[inventory.selected_slot].x, inventory.contents[inventory.selected_slot].y)
                     inventory.remove_item(inventory.contents[inventory.selected_slot])
         elif not player.immobile:

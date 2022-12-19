@@ -1,5 +1,6 @@
 import pygame
-
+from constants import *
+from player import *
 
 class Object:
     '''класс объекта
@@ -105,7 +106,55 @@ class Background:
         '''Отрисовка бэкграунда'''
         self.screen.blit(self.sprite, (self.x, self.y))
 
-    def add_object(self, obj):
+
+    def check_collisions_for_objects(self, obj: ObjectInteractable, bg_manager):
+        '''
+        функция проверяет коллизии
+        player: объект класса Player
+        bg_manager: бэкграунд, объекты на нем
+        return: ничего не возвращает
+        '''
+        if obj.hitbox_x - obj.hitbox_width / 2 < left_barrier:
+            obj.hitbox_x = left_barrier + obj.hitbox_width / 2
+        if obj.hitbox_x + obj.hitbox_width / 2 > right_barrier:
+            obj.hitbox_x = right_barrier - obj.hitbox_width / 2
+        if obj.hitbox_y - obj.hitbox_height / 2 < top_barrier:
+            obj.hitbox_y = top_barrier + obj.hitbox_height / 2
+        if obj.hitbox_y + obj.hitbox_height / 2 > bottom_barrier:
+            obj.hitbox_y = bottom_barrier - obj.hitbox_height / 2
+
+        for obj in bg_manager.current_bg.all_objects:
+            if (abs(obj.hitbox_x - obj.hitbox_x) < (obj.hitbox_width + obj.hitbox_width) / 2 and
+                    abs(obj.hitbox_y - obj.hitbox_y) < (obj.hitbox_height + obj.hitbox_height) / 2):
+                if ((obj.hitbox_width + obj.hitbox_width) / 2 - abs(obj.hitbox_x - obj.hitbox_x) <
+                        (obj.hitbox_height + obj.hitbox_height) / 2 - abs(obj.hitbox_y - obj.hitbox_y)):
+                    if obj.prev_hitbox_x > obj.hitbox_x:
+                        obj.hitbox_x = obj.hitbox_x + (obj.hitbox_width + obj.hitbox_width) / 2
+                    else:
+                        obj.hitbox_x = obj.hitbox_x - (obj.hitbox_width + obj.hitbox_width) / 2
+                elif ((obj.hitbox_width + obj.hitbox_width) / 2 - abs(obj.hitbox_x - obj.hitbox_x) >
+                      (obj.hitbox_height + obj.hitbox_height) / 2 - abs(obj.hitbox_y - obj.hitbox_y)):
+                    if obj.prev_hitbox_y > obj.hitbox_y:
+                        obj.hitbox_y = obj.hitbox_y + (obj.hitbox_height + obj.hitbox_height) / 2
+                    else:
+                        obj.hitbox_y = obj.hitbox_y - (obj.hitbox_height + obj.hitbox_height) / 2
+                else:
+                    if obj.prev_hitbox_x > obj.hitbox_x:
+                        obj.hitbox_x = obj.hitbox_x + (obj.hitbox_width + obj.hitbox_width) / 2
+                    else:
+                        obj.hitbox_x = obj.hitbox_x - (obj.hitbox_width + obj.hitbox_width) / 2
+                    if obj.prev_hitbox_y > obj.hitbox_y:
+                        obj.hitbox_y = obj.hitbox_y + (obj.hitbox_height + obj.hitbox_height) / 2
+                    else:
+                        obj.hitbox_y = obj.hitbox_y - (obj.hitbox_height + obj.hitbox_height) / 2
+
+
+    def add_object(self, obj: ObjectInteractable, player: Player, bg_manager):
+        obj.x = player.hitbox_x
+        obj.y = player.hitbox_y + obj.hitbox_height
+        obj.hitbox_x = obj.x + obj.sprite.get_width() / 2
+        obj.hitbox_y = obj.y + obj.sprite.get_height() - obj.hitbox_height / 2
+        #check_collisions_for_objects(obj, bg_manager)
         self.interactable_objects.append(obj)
         self.interactable_objects = sorted(self.interactable_objects, key=lambda t: t.hitbox_y)
         self.all_objects = sorted((self.objects + self.interactable_objects), key=lambda t: t.hitbox_y)
