@@ -14,6 +14,7 @@ player = Player(screen, player_sprites, player_starting_coord, 8,
 
 bg_manager = BackgroundManager([bg1], 0)
 
+finished = False
 while not finished:
     finished = input_handler(inventory, player, bg_manager)
     check_collisions(player, bg_manager)
