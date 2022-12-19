@@ -65,7 +65,7 @@ def check_interaction(bg_manager, player: Player, inventory: Inventory):
                     bg_manager.current_bg.all_objects.remove(obj)
                 elif not obj.pickup:
                     if obj.required_item == inventory.contents[inventory.selected_slot] or obj.required_item == None:
-                        new_st = (obj.current_state + 1) % 2
+                        new_st = (obj.current_state + 1) % int(len(obj.sprites))
                         obj.change_state(new_st)
             if interacted:
                 break
