@@ -9,6 +9,7 @@ all_sprites = {'starting_background': None,
                'mushroom': None,
                'fruit': None,
                'vase': None,
+               'wine': None,
                'window': None,
                'wadrobe_opened': None,
                'wadrobe_closed': None,
@@ -47,7 +48,7 @@ window = Object(screen, [all_sprites['window']], [200, 30],
 
 inter_obj = None
 inter_list = []
-for i in range(1, 5):
+for i in range(1, 4):
     inter_obj = ObjectInteractable(screen, [all_sprites['mushroom']], [i * 100 + 200, 550],
                                    [[all_sprites['mushroom'].get_width(), all_sprites['mushroom'].get_height() / 4]],
                                    True)
@@ -71,6 +72,10 @@ inter_list.append(fruit)
 vase = ObjectInteractable(screen, [all_sprites['vase']], [600, 350],
                           [[all_sprites['vase'].get_width(), all_sprites['vase'].get_height() / 4]], True)
 inter_list.append(vase)
+
+wine = ObjectInteractable(screen, [all_sprites['wine']], [650, 230],
+                          [[all_sprites['wine'].get_width(), all_sprites['wine'].get_height() / 4]], True)
+inter_list.append(wine)
 
 wadrobe.required_item = key
 
