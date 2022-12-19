@@ -61,6 +61,33 @@ class ObjectInteractable(Object):
         self.hitbox_x = self.x + self.sprite.get_width() / 2
         self.hitbox_y = self.y + self.sprite.get_height() - self.hitbox_height / 2
 
+class StaticObjectInteractable(Object):
+    def __init__(self, screen: pygame.Surface, sprites: list, coord: list, hitbox_sizes, pickup: bool, interaction_area=4,
+                 inventory_sprite=None, required_item=None):
+        super().__init__(screen, sprites, coord, hitbox_sizes)
+        self.inter_area = interaction_area
+        self.pickup = pickup
+        if self.pickup:
+            if inventory_sprite != None:
+                self.inventory_sprite = inventory_sprite
+            else:
+                self.inventory_sprite = self.sprite
+        elif required_item != None:
+            self.required_item = required_item
+
+    def change_state(self, new_state):
+        '''Изменить состояние объекта'''
+        self.current_state = new_state
+        self.sprite = self.sprites[self.current_state]
+        self.hitbox_width = self.hitbox_sizes[self.current_state][0]
+        self.hitbox_height = self.hitbox_sizes[self.current_state][1]
+        self.hitbox_x = self.x + self.sprite.get_width() / 2
+        self.hitbox_y = self.y + self.sprite.get_height() - self.hitbox_height / 2
+
+
+
+
+
 class Background:
     '''класс бэкграунда
     screen - экран, на котором расположен бэкграунд
