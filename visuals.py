@@ -63,16 +63,16 @@ class ObjectInteractable(Object):
         self.hitbox_y = self.y + self.sprite.get_height() - self.hitbox_height / 2
 
     def give(self, player: Player, inventory: Inventory):
-    '''
-    дает объекты после взаимодействия
-    '''
-   
-    if ((abs(player.hitbox_x - self.hitbox_x) <= (player.hitbox_width + self.hitbox_width)/2 + self.inter_area) and
-        (abs(player.hitbox_y - self.hitbox_y) <= (player.hitbox_height + self.hitbox_height)/2 + self.inter_area)) and
-        self.required_item == invenory.contents[selected_slot] and player.immobile:
-          
-        inventory.add_item(self.given_item)
-        inventory.remove_item(invenory.contents[selected_slot])
+        '''
+        дает объекты после взаимодействия
+        '''
+
+        if ((abs(player.hitbox_x - self.hitbox_x) <= (player.hitbox_width + self.hitbox_width)/2 + self.inter_area) and
+            (abs(player.hitbox_y - self.hitbox_y) <= (player.hitbox_height + self.hitbox_height)/2 + self.inter_area)) and
+            self.required_item == invenory.contents[selected_slot] and player.immobile:
+                
+            inventory.add_item(self.given_item)
+            inventory.remove_item(invenory.contents[selected_slot])
 
 
 
