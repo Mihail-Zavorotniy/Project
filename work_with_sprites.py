@@ -47,4 +47,9 @@ wadrobe = ObjectInteractable(screen, [all_sprites['wadrobe_closed'], all_sprites
                              wadrobe_hitbox_sizes, False)
 inter_list.append(wadrobe)
 
+key = ObjectInteractable(screen, [all_sprites['key']], [100, 400],
+                  [[all_sprites['key'].get_width(), all_sprites['key'].get_height()/4]], True)
+
+inter_list.append(key)
+
 bg1 = Background(screen, all_sprites['starting_background'], [obj1], inter_list)
