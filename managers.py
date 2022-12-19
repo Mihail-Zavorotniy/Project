@@ -66,6 +66,7 @@ def check_interaction(bg_manager, player: Player, inventory: Inventory):
             if interacted:
                 break
 
+
 def input_handler(inventory: Inventory, player: Player, bg_manager):
     '''
     функция обрабатывает события клавиатуры
